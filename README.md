@@ -1,5 +1,5 @@
 # Assessment 2: Plan and Implement a Terminal Application
-____________
+
 ## Statement of purpose and scope
 
 The purpose of this terminal app is to allow users to gain valuable information about their health and tips for maintaining their health goals such as losing, gaining or maintaining their weight. 
@@ -20,14 +20,38 @@ To break this down further, The user will also be provided with a basic guidelin
 
 Due to the age restrictions of the formula used for Basal Metabolic Rate and Body Mass index Levels, only adults over the age of 18 can use this health app. 
 
-It is also recommended that individuals who are weight training be advised that inaccuracies can occur with their Body Mass Index levels due to the misconception of heavier muscle mass being extra unwanted weight leading to results of overweight or obese. 
+It is also recommended that individuals who are weight training be advised that inaccuracies can occur with their Body Mass Index levels due to the misconception of heavier muscle mass being extra unwanted weight leading to resulting outputs being overweight or obese. 
+
+## Features
+#### BMI Calculator
+
+#### Estimated energy requirement calculator
+
+#### Macronutrient calculator
+
+
 
 ## Flowchart 
 
-![BMI_calc](BMI_Calc_Flowchart.png)
+![BMI_calc](Documents/BMI_Calc_Flowchart.png)
 
-![BMR_Calc_Flowchart](BMR_Calc_Flowchart.png)
+![BMR_Calc_Flowchart](Documents/BMR_Calc_Flowchart.png)
+
+![EER_Chart](Documents/EER_Chart_Flowchart.png)
+
+![PAL_Calc](Documents/PAL_Calc_Flowchart.png)
+
+![Macro_Chart_Flowchart](Documents/Macro_Chart_Flowchart.png)
 
 
 
 
+## Development Plan 
+
+![Trello_Start](Documents/Trello_day_1.png)
+
+![Trello_day1](Documents/Trello_day_1.2.png)
+
+### Feature 1 - BMI Calculator
+#### Tasks:
+- 
