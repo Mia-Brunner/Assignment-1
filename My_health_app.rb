@@ -25,3 +25,14 @@ if age <18
 else age >18
   puts "\n"
 end 
+
+# Body Mass Index Calculation method is called and output is produced based on user input
+bmi = BMI.new(weight_in_kg, height_in_cm)
+puts "#{bmi.calculate_bmi(weight_in_kg,height_in_cm)}\n"
+
+# Using Gem - tty-prompt to create a menu selection to continue or leave
+prompt = TTY::Prompt.new 
+continue = prompt.select('Would you like to continue to see how many calories your body needs to consume everyday?') do |menu|
+  menu.choice name: 'Yes',  value: 'Yes'
+  menu.choice name: 'No', value: 'No'
+end 
