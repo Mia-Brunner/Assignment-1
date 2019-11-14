@@ -1,82 +1,27 @@
-# require gems
-# require modules
+# Required Gems:
+require 'tty-prompt'
 
-puts "#####################################################"
-puts "#######  WELCOME TO MIAS BRUNNERS SICKETH BMI #######"
-puts "#####################################################"
+# Required files
+require_relative 'BMI_Class'
+require_relative 'EER_Class'
 
-
-
-def calculate_bmi(weight, height)
-  weight = 0
-  height = 0
- 
-  body_mass_index = weight.to_f / (height.to_f * height.to_f)
-  puts "Your BMI is #{body_mass_index.to_i}"
-  # puts (type(body_mass_index))
-
-  if body_mass_index < 18.5
-      puts "underweight" 
-  elsif body_mass_index >= 18.5 && body_mass_index < 25.0
-      puts "normal"
-  elsif body_mass_index >= 25.0 && body_mass_index < 30.0 
-      puts "overweight"
-  else 
-      puts "obese"
-  end
+# Using Gem - tty-prompt to create a menu selection for gender options
+prompt = TTY::Prompt.new 
+gender = prompt.select('What is your gender?') do |menu|
+  menu.choice name: 'Male',  value: 'Male'
+  menu.choice name: 'Female', value: 'Female'
 end
 
-# def get_user_data
-  puts "What is your name?"
-  name = gets.chomp
-  puts "Welcome #{name}"
-
-  puts "What is your height?"
-  height = gets.chomp.to_f
-
-  puts "What is your weight?"
-  weight = gets.chomp.to_f
-
-  puts "What is your gender?"
-  gender = gets.chomp.to_f
-
-  puts "Confirm these details are correct?"
-  puts "Name: #{name}"
-  puts "Height: #{height}cm"
-  puts "Weight: #{weight}kg"
-  puts "Gender: #{gender}"
-# end 
-
-# get_user_data()
-
-
-def calc(weight, height)
-  puts "Are these details correct? (Y/N)"
-data_confirmation = gets.chomp.downcase
-
-if data_confirmation == 'y'
-  puts "YEH SICKK"
-  calculate_bmi(weight, height)
-elsif data_confirmation == 'n'
-  # get_user_data()
-  # puts "Are these details correct? (Y/N)"
-elsif data_confirmation != 'y' || data_confirmation != 'n'
-  puts "please select y / n"
-  data_confirmation = gets.chomp.downcase
-  if data_confirmation == 'y'
-    
-  elsif data_confirmation == 'n'
-    get_user_data()
-  else 
-    puts "start again"
-    exit
-  end
-end
-end
-
-calc(weight, height)
-
-#  logic
-
-
-
+# User input (weight, height, age)
+puts "What is your weight in kgs? eg: 60"
+weight_in_kg = gets.chomp
+puts "What is your height in cm? eg: 160"
+height_in_cm = gets.chomp
+puts "What is your age?"
+age = gets.chomp.to_i
+if age <18 
+  puts "You are not old enough to use this health app! Please come back in a couple of years"
+  return
+else age >18
+  puts "\n"
+end 
