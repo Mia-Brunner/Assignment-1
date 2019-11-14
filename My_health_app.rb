@@ -92,3 +92,58 @@ elsif continue == "No"
   return 
 end 
 
+# Using Gem - tty-prompt to create a menu selection to continue or leave
+prompt = TTY::Prompt.new 
+goal = prompt.select('Now that we know how many calories you need to consume every day, please choose a goal:') do |menu|
+  menu.choice name: 'I want to gain weight', value: 'gain'
+  menu.choice name: 'I want to lose weight', value: 'lose'
+  menu.choice name: 'I want to maintain my current weight', value: 'maintain'
+end 
+
+# Identifying macronutrients to be consumed based of daily energy requirements, weight goals and gender
+if goal == "gain" && gender == "Male"
+  eer_male_gain = eer_male + 500
+  puts "In order to gain weight you should consume #{eer_male_gain.to_i} Kcals per day."
+  puts "From each macronutrient it is suggested that you consume:"
+  puts "#{(eer_male_gain * 0.30 / 4).to_i} grams of protein"
+  puts "#{(eer_male_gain * 0.35 / 9).to_i} grams of fats"
+  puts "#{(eer_male_gain * 0.35 / 4).to_i} grams of carbohydrates"
+
+  elsif goal == "lose" && gender == "Male"
+    eer_male_lose = eer_male - 500
+    puts "In order to lose weight you should consume #{eer_male_lose.to_i} Kcals per day.\n"
+    puts "From each macronutrient it is suggested that you consume:"
+    puts "#{(eer_male_lose * 0.30 / 4).to_i} grams of protein"
+    puts "#{(eer_male_lose * 0.35 / 9).to_i} grams of fats"
+    puts "#{(eer_male_lose * 0.35 / 4).to_i} grams of carbohydrates"
+  
+  elsif goal == "maintain" && gender == "Male"
+    puts "To maintain your weight you can continue to consume #{eer_male.to_i} Kcals per day.\n"
+    puts "From each macronutrient it is suggested that you consume:"
+    puts "#{(eer_male * 0.30 / 4).to_i} grams of protein"
+    puts "#{(eer_male * 0.35 / 9).to_i} grams of fats"
+    puts "#{(eer_male * 0.35 / 4).to_i} grams of carbohydrates"
+  
+  elsif goal == "gain" && gender == "Female"
+    eer_female_gain = eer_female + 500
+    puts "In order to gain weight you should consume #{eer_female_gain.to_i} Kcals per day.\n"
+    puts "From each macronutrient it is suggested that you consume:"
+    puts "#{(eer_female_gain * 0.30 / 4).to_i} grams of protein"
+    puts "#{(eer_female_gain * 0.35 / 9).to_i} grams of fats"
+    puts "#{(eer_female_gain * 0.35 / 4).to_i} grams of carbohydrates"
+
+  elsif goal == "lose" && gender == "Female"
+    eer_female_lose = eer_female - 500
+    puts "In order to lose weight you should consume #{eer_female_lose.to_i} Kcals per day.\n"
+    puts "From each macronutrient it is suggested that you consume:"
+    puts "#{(eer_female_lose * 0.30 / 4).to_i} grams of protein"
+    puts "#{(eer_female_lose * 0.35 / 9).to_i} grams of fats"
+    puts "#{(eer_female_lose * 0.35 / 4).to_i} grams of carbohydrates"
+
+  elsif goal == "maintain" && gender == "Female"
+    puts "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day.\n"
+    puts "From each macronutrient it is suggested that you consume:"
+    puts "#{(eer_female * 0.30 / 4).to_i} grams of protein"
+    puts "#{(eer_female * 0.35 / 9).to_i} grams of fats"
+    puts "#{(eer_female * 0.35 / 4).to_i} grams of carbohydrates"
+end 
