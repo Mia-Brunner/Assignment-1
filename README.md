@@ -37,9 +37,9 @@ It is also recommended that individuals who are weight training be advised that 
 
 ![BMR_Calc_Flowchart](Documents/BMR_Calc_Flowchart.png)
 
-![EER_Chart](Documents/EER_Chart_Flowchart.png)
-
 ![PAL_Calc](Documents/PAL_Calc_Flowchart.png)
+
+![EER_Chart](Documents/EER_Chart_Flowchart.png)
 
 ![Macro_Chart_Flowchart](Documents/Macro_Chart_Flowchart.png)
 
