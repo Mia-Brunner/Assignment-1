@@ -1,9 +1,17 @@
 # Required Gems:
 require 'tty-prompt'
+require 'TTY-font'
+require 'pastel'
 
 # Required files
 require_relative 'BMI_Class'
 require_relative 'EER_Class'
+
+font = TTY::Font.new(:doom)
+puts font.write("WELCOME")
+
+pastel = Pastel.new
+puts pastel.yellow(font.write("NAME"))
 
 # Using Gem - tty-prompt to create a menu selection for gender options
 prompt = TTY::Prompt.new 
@@ -13,11 +21,13 @@ gender = prompt.select('What is your gender?') do |menu|
 end
 
 # User input (weight, height, age)
-puts "What is your weight in kgs? eg: 60"
+puts pastel.blue('What is your weight in ', pastel.bold.underline('Kilograms'), '? eg:60')
 weight_in_kg = gets.chomp
-puts "What is your height in cm? eg: 160"
+
+puts pastel.magenta('What is your height in ', pastel.bold.underline('Centimeters'), '? eg:160')
 height_in_cm = gets.chomp
-puts "What is your age?"
+
+puts pastel.yellow("What is your age in ", pastel.bold.underline('years'),'?')
 age = gets.chomp.to_i
 if age <18 
   puts "You are not old enough to use this health app! Please come back in a couple of years"
@@ -32,7 +42,7 @@ puts "#{bmi.calculate_bmi(weight_in_kg,height_in_cm)}\n"
 
 # Using Gem - tty-prompt to create a menu selection to continue or leave
 prompt = TTY::Prompt.new 
-continue = prompt.select('Would you like to continue to see how many calories your body needs to consume everyday?') do |menu|
+continue = prompt.select('Would you like to continue to see how many calories your body needs to consume every day?') do |menu|
   menu.choice name: 'Yes',  value: 'Yes'
   menu.choice name: 'No', value: 'No'
 end 
@@ -76,14 +86,14 @@ if continue == 'Yes'
   if gender == "Male"
     eer = EER.new(weight_in_kg, height_in_cm, age, exercise)
     eer_male = eer.bmr_pal_m(weight_in_kg, height_in_cm, age, exercise)
-    puts "Your estimated energy requirement is #{eer_male} Kcal/day"
+    puts "Your estimated energy requirement is #{eer_male.to_i} Kcal/day"
     puts"\n"
     
   # Output: estimates female calorie intake per day 
   elsif gender == 'Female'
     eer = EER.new(weight_in_kg, height_in_cm, age, exercise)
     eer_female = eer.bmr_pal_f(weight_in_kg, height_in_cm, age, exercise)
-    puts "Your estimated energy requirement is #{eer_female} Kcal/day"
+    puts "Your estimated energy requirement is #{eer_female.to_i} Kcal/day"
     puts "\n"
   end
   
@@ -147,3 +157,20 @@ if goal == "gain" && gender == "Male"
     puts "#{(eer_female * 0.35 / 9).to_i} grams of fats"
     puts "#{(eer_female * 0.35 / 4).to_i} grams of carbohydrates"
 end 
+
+# # Errors
+# begin
+#   file = File.open("data.txt")
+#   file.write("") 
+# rescue IOError => e
+#   #some error occur, dir not writable etc.
+# ensure
+#   file.close unless file.nil?
+# end
+
+
+# begin
+#   File.read("does/not/exist")
+# rescue SystemCallError => e
+#   puts "Rescued: #{e.inspect}"
+# end
