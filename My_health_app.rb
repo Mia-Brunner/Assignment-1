@@ -11,6 +11,32 @@ require_relative 'EER_Class'
 # storing data to be placed into a new file 
 output_data = []
 
+# Command line argument 
+font = TTY::Font.new(:doom)
+pastel = Pastel.new
+greeting = "Welcome"
+output = []
+
+ARGV.each do |arg|
+    case arg
+    when "--hello"
+        greeting = "Hello"
+    when "--welcome"
+        greeting = "Welcome"
+    else
+        output << arg
+    end
+end
+
+output.each do |value|
+  puts pastel.magenta(font.write("#{greeting}    #{value}"))
+end
+
+# Fixes gets with argv
+def gets
+  STDIN.gets
+end
+
 # Gem Spinner 
 spinner = TTY::Spinner.new("[:spinner] Thinking ...", format: :dots_2)
 spinner.auto_spin # Automatic animation with default interval
@@ -59,12 +85,13 @@ end
 # If statement identifying options when choosing to continue or leave 
 if continue == 'Yes'
   # Basic guideline of the constituents of each Physical Activity Level for User awareness 
-  puts "Physcial activity Level Guideline:\n"
-  puts "Sedentary:\nLittle or no exercise"
-  puts "Light:\nLight exercise/sports 1-3 days/week"
-  puts "Moderate:\nModerate exercise/sports 3-5 days/week"
-  puts "Active:\nHard exercise/sports 6-7 days a week"
-  puts "Super:\nVery hard exercise/sports & physical job or 2x training\n\n"
+  puts pastel.decorate("Physcial activity Level Guideline:", :black, :on_green, :bold)
+  puts pastel.decorate("Sedentary = Little or no exercise", :green)
+  puts pastel.decorate("Light = Light exercise/sports 1-3 days/week", :green)
+  puts pastel.decorate("Moderate = Moderate exercise/sports 3-5 days/week", :green)
+  puts pastel.decorate("Active = Hard exercise/sports 6-7 days a week", :green) 
+  puts pastel.decorate("Super = Very hard exercise/sports & physical job or 2x training", :green)
+  puts "\n\n"
 
   # Using Gem - tty-prompt to create a menu selection to identify users Physical Activity Level 
   activity_type = prompt.select('What is your physical activity level?') do |menu|
@@ -158,7 +185,6 @@ if goal == "gain" && gender == "Male"
     output_data << "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_maintain}"
 end 
 
-
 # Error Handling 
 def save_output (file_name, output)
   begin
@@ -167,6 +193,5 @@ def save_output (file_name, output)
     puts "failed to save output #{exception}"
   end
 end 
-
 save_output("data.txt", output_data)
 
