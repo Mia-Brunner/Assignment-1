@@ -2,31 +2,37 @@
 require 'tty-prompt'
 require 'TTY-font'
 require 'pastel'
+require 'tty-spinner'
 
 # Required files
 require_relative 'BMI_Class'
 require_relative 'EER_Class'
 
-font = TTY::Font.new(:doom)
-puts font.write("WELCOME")
+# storing data to be placed into a new file 
+output_data = []
 
-pastel = Pastel.new
-puts pastel.yellow(font.write("NAME"))
+# Gem Spinner 
+spinner = TTY::Spinner.new("[:spinner] Thinking ...", format: :dots_2)
+spinner.auto_spin # Automatic animation with default interval
+sleep(3) # Perform task
+spinner.stop('Done!') # Stop animation
 
 # Using Gem - tty-prompt to create a menu selection for gender options
-prompt = TTY::Prompt.new 
+prompt = TTY::Prompt.new
 gender = prompt.select('What is your gender?') do |menu|
   menu.choice name: 'Male',  value: 'Male'
   menu.choice name: 'Female', value: 'Female'
 end
+output_data << "Gender: " + gender
 
 # User input (weight, height, age)
+pastel = Pastel.new
 puts pastel.blue('What is your weight in ', pastel.bold.underline('Kilograms'), '? eg:60')
 weight_in_kg = gets.chomp
-
+output_data << "Weight: #{weight_in_kg}kg"
 puts pastel.magenta('What is your height in ', pastel.bold.underline('Centimeters'), '? eg:160')
 height_in_cm = gets.chomp
-
+output_data << "Height: #{height_in_cm}cm"
 puts pastel.yellow("What is your age in ", pastel.bold.underline('years'),'?')
 age = gets.chomp.to_i
 if age <18 
@@ -35,18 +41,20 @@ if age <18
 else age >18
   puts "\n"
 end 
+output_data << "Age: #{age}"
 
 # Body Mass Index Calculation method is called and output is produced based on user input
 bmi = BMI.new(weight_in_kg, height_in_cm)
-puts "#{bmi.calculate_bmi(weight_in_kg,height_in_cm)}\n"
+bmi_display = bmi.calculate_bmi(weight_in_kg,height_in_cm)
+puts "#{bmi_display}"
+output_data << bmi_display
+###BMI NOT being grabbed into output data
 
 # Using Gem - tty-prompt to create a menu selection to continue or leave
-prompt = TTY::Prompt.new 
 continue = prompt.select('Would you like to continue to see how many calories your body needs to consume every day?') do |menu|
   menu.choice name: 'Yes',  value: 'Yes'
   menu.choice name: 'No', value: 'No'
 end 
-
 
 # If statement identifying options when choosing to continue or leave 
 if continue == 'Yes'
@@ -59,7 +67,6 @@ if continue == 'Yes'
   puts "Super:\nVery hard exercise/sports & physical job or 2x training\n\n"
 
   # Using Gem - tty-prompt to create a menu selection to identify users Physical Activity Level 
-  prompt = TTY::Prompt.new 
   activity_type = prompt.select('What is your physical activity level?') do |menu|
   menu.choice name: 'Sedentary',  value: 'Sedentary'
   menu.choice name: 'Light', value: 'Light'
@@ -103,7 +110,6 @@ elsif continue == "No"
 end 
 
 # Using Gem - tty-prompt to create a menu selection to continue or leave
-prompt = TTY::Prompt.new 
 goal = prompt.select('Now that we know how many calories you need to consume every day, please choose a goal:') do |menu|
   menu.choice name: 'I want to gain weight', value: 'gain'
   menu.choice name: 'I want to lose weight', value: 'lose'
@@ -113,64 +119,54 @@ end
 # Identifying macronutrients to be consumed based of daily energy requirements, weight goals and gender
 if goal == "gain" && gender == "Male"
   eer_male_gain = eer_male + 500
+  macros_male_gain = "#{(eer_male_gain * 0.30 / 4).to_i} grams of protein \n#{(eer_male_gain * 0.35 / 9).to_i} grams of fats \n#{(eer_male_gain * 0.35 / 4).to_i} grams of carbohydrates"
   puts "In order to gain weight you should consume #{eer_male_gain.to_i} Kcals per day."
-  puts "From each macronutrient it is suggested that you consume:"
-  puts "#{(eer_male_gain * 0.30 / 4).to_i} grams of protein"
-  puts "#{(eer_male_gain * 0.35 / 9).to_i} grams of fats"
-  puts "#{(eer_male_gain * 0.35 / 4).to_i} grams of carbohydrates"
+  puts "From each macronutrient it is suggested that you consume: \n#{macros_male_gain}"
+  output_data << "In order to gain weight you should consume #{eer_male_gain.to_i} Kcals per day. \nFrom each macronutrient it is suggested that you consume: \n#{macros_male_gain}"
 
   elsif goal == "lose" && gender == "Male"
     eer_male_lose = eer_male - 500
-    puts "In order to lose weight you should consume #{eer_male_lose.to_i} Kcals per day.\n"
-    puts "From each macronutrient it is suggested that you consume:"
-    puts "#{(eer_male_lose * 0.30 / 4).to_i} grams of protein"
-    puts "#{(eer_male_lose * 0.35 / 9).to_i} grams of fats"
-    puts "#{(eer_male_lose * 0.35 / 4).to_i} grams of carbohydrates"
+    macros_male_lose = "#{(eer_male_lose * 0.30 / 4).to_i} grams of protein \n#{(eer_male_lose * 0.35 / 9).to_i} grams of fats \n#{(eer_male_lose * 0.35 / 4).to_i} grams of carbohydrates"
+    puts "In order to lose weight you should consume #{eer_male_lose.to_i} Kcals per day."
+    puts "From each macronutrient it is suggested that you consume:\n#{macros_male_lose}"
+    output_data << "In order to lose weight you should consume #{eer_male_lose.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_male_lose}"
   
   elsif goal == "maintain" && gender == "Male"
-    puts "To maintain your weight you can continue to consume #{eer_male.to_i} Kcals per day.\n"
-    puts "From each macronutrient it is suggested that you consume:"
-    puts "#{(eer_male * 0.30 / 4).to_i} grams of protein"
-    puts "#{(eer_male * 0.35 / 9).to_i} grams of fats"
-    puts "#{(eer_male * 0.35 / 4).to_i} grams of carbohydrates"
+    macros_male_maintain = "#{(eer_male * 0.30 / 4).to_i} grams of protein \n#{(eer_male * 0.35 / 9).to_i} grams of fats\n#{(eer_male * 0.35 / 4).to_i} grams of carbohydrates"
+    puts "To maintain your weight you can continue to consume #{eer_male.to_i} Kcals per day."
+    puts "From each macronutrient it is suggested that you consume:\n#{macros_male_maintain}"
+    output_data << "To maintain your weight you can continue to consume #{eer_male.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_male_maintain}"
   
   elsif goal == "gain" && gender == "Female"
     eer_female_gain = eer_female + 500
-    puts "In order to gain weight you should consume #{eer_female_gain.to_i} Kcals per day.\n"
-    puts "From each macronutrient it is suggested that you consume:"
-    puts "#{(eer_female_gain * 0.30 / 4).to_i} grams of protein"
-    puts "#{(eer_female_gain * 0.35 / 9).to_i} grams of fats"
-    puts "#{(eer_female_gain * 0.35 / 4).to_i} grams of carbohydrates"
+    macros_female_gain = "#{(eer_female_gain * 0.30 / 4).to_i} grams of protein\n#{(eer_female_gain * 0.35 / 9).to_i} grams of fats\n#{(eer_female_gain * 0.35 / 4).to_i} grams of carbohydrates"
+    puts "In order to gain weight you should consume #{eer_female_gain.to_i} Kcals per day."
+    puts "From each macronutrient it is suggested that you consume:\n#{macros_female_gain}"
+    output_data << "In order to gain weight you should consume #{eer_female_gain.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_gain}"
 
   elsif goal == "lose" && gender == "Female"
     eer_female_lose = eer_female - 500
-    puts "In order to lose weight you should consume #{eer_female_lose.to_i} Kcals per day.\n"
-    puts "From each macronutrient it is suggested that you consume:"
-    puts "#{(eer_female_lose * 0.30 / 4).to_i} grams of protein"
-    puts "#{(eer_female_lose * 0.35 / 9).to_i} grams of fats"
-    puts "#{(eer_female_lose * 0.35 / 4).to_i} grams of carbohydrates"
+    macros_female_lose = "#{(eer_female_lose * 0.30 / 4).to_i} grams of protein\n#{(eer_female_lose * 0.35 / 9).to_i} grams of fats\n#{(eer_female_lose * 0.35 / 4).to_i} grams of carbohydrates"
+    puts "In order to lose weight you should consume #{eer_female_lose.to_i} Kcals per day."
+    puts "From each macronutrient it is suggested that you consume:\n#{macros_female_lose}"
+    output_data << "In order to lose weight you should consume #{eer_female_lose.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_lose}"
 
   elsif goal == "maintain" && gender == "Female"
-    puts "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day.\n"
-    puts "From each macronutrient it is suggested that you consume:"
-    puts "#{(eer_female * 0.30 / 4).to_i} grams of protein"
-    puts "#{(eer_female * 0.35 / 9).to_i} grams of fats"
-    puts "#{(eer_female * 0.35 / 4).to_i} grams of carbohydrates"
+    macros_female_maintain = "#{(eer_female * 0.30 / 4).to_i} grams of protein\n#{(eer_female * 0.35 / 9).to_i} grams of fats\n#{(eer_female * 0.35 / 4).to_i} grams of carbohydrates"
+    puts "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day."
+    puts "From each macronutrient it is suggested that you consume:\n#{macros_female_maintain}"
+    output_data << "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_maintain}"
 end 
 
-# # Errors
-# begin
-#   file = File.open("data.txt")
-#   file.write("") 
-# rescue IOError => e
-#   #some error occur, dir not writable etc.
-# ensure
-#   file.close unless file.nil?
-# end
 
+# Error Handling 
+def save_output (file_name, output)
+  begin
+  File.write(file_name,output.join("\n"))
+  rescue StandardError => exception
+    puts "failed to save output #{exception}"
+  end
+end 
 
-# begin
-#   File.read("does/not/exist")
-# rescue SystemCallError => e
-#   puts "Rescued: #{e.inspect}"
-# end
+save_output("data.txt", output_data)
+
