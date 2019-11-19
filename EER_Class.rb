@@ -16,6 +16,7 @@ class EER
     basal_metabolic_rate_men = 66.47 + bmr_men_weight + bmr_men_height - bmr_men_age 
 
     estimated_energy_requirement = basal_metabolic_rate_men.to_i * exercise
+    estimated_energy_requirement.to_i
   end 
 
   # Daily estimated energy requirement for women
@@ -27,6 +28,7 @@ class EER
     basal_metabolic_rate_women = 655.1 + bmr_women_weight + bmr_women_height - bmr_women_age 
 
     estimated_energy_requirement = basal_metabolic_rate_women.to_i * exercise
+    estimated_energy_requirement.to_i
   end 
 
 end 

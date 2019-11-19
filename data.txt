@@ -1,11 +1,11 @@
 Gender: Male
 Weight: 60kg
-Height: 160cm
-Age: 34
-Your BMI is 23.44
-This classifies you as being in the normal weight range
-In order to gain weight you should consume 2254 Kcals per day. 
+Height: 140cm
+Age: 23
+Your BMI is 30.61
+This classifies you as obese
+In order to gain weight you should consume 2223 Kcals per day. 
 From each macronutrient it is suggested that you consume: 
-169 grams of protein 
-87 grams of fats 
-197 grams of carbohydrates
+166 grams of protein 
+86 grams of fats 
+194 grams of carbohydrates

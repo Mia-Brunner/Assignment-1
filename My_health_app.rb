@@ -51,7 +51,8 @@ gender = prompt.select('What is your gender?') do |menu|
 end
 output_data << "Gender: " + gender
 
-# User input (weight, height, age)
+# User input (weight, height, age and stored into an array)
+# used gem - Pastel 
 pastel = Pastel.new
 puts pastel.blue('What is your weight in ', pastel.bold.underline('Kilograms'), '? eg:60')
 weight_in_kg = gets.chomp
@@ -70,11 +71,27 @@ end
 output_data << "Age: #{age}"
 
 # Body Mass Index Calculation method is called and output is produced based on user input
+
 bmi = BMI.new(weight_in_kg, height_in_cm)
-bmi_display = bmi.calculate_bmi(weight_in_kg,height_in_cm)
-puts "#{bmi_display}"
-output_data << bmi_display
-###BMI NOT being grabbed into output data
+body_mass_index = bmi.calculate_bmi(weight_in_kg,height_in_cm)
+puts "Your BMI is #{body_mass_index.to_f.round(2)}\n"
+output_data << "Your BMI is #{body_mass_index.round(2)}"
+
+if body_mass_index < 10
+  result = "Data input error. Please input accurate data"
+elsif body_mass_index >= 10 && body_mass_index < 18.5
+  result = "This classifies you as underweight" 
+elsif body_mass_index >= 18.5 && body_mass_index < 25.0
+  result = "This classifies you as being in the normal weight range"
+elsif body_mass_index >= 25.0 && body_mass_index < 30.0 
+  result = "This classifies you as overweight"
+elsif body_mass_index >= 30.0 && body_mass_index < 60.0 
+  result = "This classifies you as obese"
+else body_mass_index >= 60.0
+  result = "Data input error. Please input accurate data"
+end
+puts result
+output_data << result
 
 # Using Gem - tty-prompt to create a menu selection to continue or leave
 continue = prompt.select('Would you like to continue to see how many calories your body needs to consume every day?') do |menu|
@@ -143,7 +160,7 @@ goal = prompt.select('Now that we know how many calories you need to consume eve
   menu.choice name: 'I want to maintain my current weight', value: 'maintain'
 end 
 
-# Identifying macronutrients to be consumed based of daily energy requirements, weight goals and gender
+# Identifying macronutrients to be consumed based of daily energy requirements, weight goals and gender and adding it into an array
 if goal == "gain" && gender == "Male"
   eer_male_gain = eer_male + 500
   macros_male_gain = "#{(eer_male_gain * 0.30 / 4).to_i} grams of protein \n#{(eer_male_gain * 0.35 / 9).to_i} grams of fats \n#{(eer_male_gain * 0.35 / 4).to_i} grams of carbohydrates"
