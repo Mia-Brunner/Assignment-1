@@ -63,34 +63,33 @@ output_data << "Height: #{height_in_cm}cm"
 puts pastel.yellow("What is your age in ", pastel.bold.underline('years'),'?')
 age = gets.chomp.to_i
 if age <18 
-  puts "You are not old enough to use this health app! Please come back in a couple of years"
+  puts "Inaccurate data input"
   return
 else age >18
   puts "\n"
 end 
 output_data << "Age: #{age}"
 
-# Body Mass Index Calculation method is called and output is produced based on user input
-
+# Body Mass Index Calculation
 bmi = BMI.new(weight_in_kg, height_in_cm)
 body_mass_index = bmi.calculate_bmi(weight_in_kg,height_in_cm)
-puts "Your BMI is #{body_mass_index.to_f.round(2)}\n"
+puts pastel.blue("Your BMI is ", pastel.bold.underline("#{body_mass_index.to_f.round(2)}"))
 output_data << "Your BMI is #{body_mass_index.round(2)}"
 
 if body_mass_index < 10
-  result = "Data input error. Please input accurate data"
+  result = "Data input error. Please input accurate data."
 elsif body_mass_index >= 10 && body_mass_index < 18.5
-  result = "This classifies you as underweight" 
+  result = "This classifies you as underweight." 
 elsif body_mass_index >= 18.5 && body_mass_index < 25.0
-  result = "This classifies you as being in the normal weight range"
+  result = "This classifies you as being in the normal weight range."
 elsif body_mass_index >= 25.0 && body_mass_index < 30.0 
-  result = "This classifies you as overweight"
+  result = "This classifies you as overweight."
 elsif body_mass_index >= 30.0 && body_mass_index < 60.0 
-  result = "This classifies you as obese"
+  result = "This classifies you as obese."
 else body_mass_index >= 60.0
-  result = "Data input error. Please input accurate data"
+  result = "Data input error. Please input accurate data."
 end
-puts result
+puts pastel.blue("#{result}\n")
 output_data << result
 
 # Using Gem - tty-prompt to create a menu selection to continue or leave
@@ -102,7 +101,7 @@ end
 # If statement identifying options when choosing to continue or leave 
 if continue == 'Yes'
   # Basic guideline of the constituents of each Physical Activity Level for User awareness 
-  puts pastel.decorate("Physcial activity Level Guideline:", :black, :on_green, :bold)
+  puts pastel.decorate("\nPhyscial activity Level Guideline:", :green, :underline, :bold)
   puts pastel.decorate("Sedentary = Little or no exercise", :green)
   puts pastel.decorate("Light = Light exercise/sports 1-3 days/week", :green)
   puts pastel.decorate("Moderate = Moderate exercise/sports 3-5 days/week", :green)
@@ -137,17 +136,14 @@ if continue == 'Yes'
   if gender == "Male"
     eer = EER.new(weight_in_kg, height_in_cm, age, exercise)
     eer_male = eer.bmr_pal_m(weight_in_kg, height_in_cm, age, exercise)
-    puts "Your estimated energy requirement is #{eer_male.to_i} Kcal/day"
-    puts"\n"
-    
+    puts pastel.magenta("\nYour Estimated Energy Requirement is ", pastel.bold.underline("#{eer_male.to_i} Kcal/day\n"))
+
   # Output: estimates female calorie intake per day 
   elsif gender == 'Female'
     eer = EER.new(weight_in_kg, height_in_cm, age, exercise)
     eer_female = eer.bmr_pal_f(weight_in_kg, height_in_cm, age, exercise)
-    puts "Your estimated energy requirement is #{eer_female.to_i} Kcal/day"
-    puts "\n"
+    puts pastel.magenta("\nYour Estimated Energy Requirement is ", pastel.bold.underline("#{eer_female.to_i} Kcal/day\n"))
   end
-  
 elsif continue == "No"
   puts "Thank you, come again"
   return 
@@ -164,43 +160,46 @@ end
 if goal == "gain" && gender == "Male"
   eer_male_gain = eer_male + 500
   macros_male_gain = "#{(eer_male_gain * 0.30 / 4).to_i} grams of protein \n#{(eer_male_gain * 0.35 / 9).to_i} grams of fats \n#{(eer_male_gain * 0.35 / 4).to_i} grams of carbohydrates"
-  puts "In order to gain weight you should consume #{eer_male_gain.to_i} Kcals per day."
-  puts "From each macronutrient it is suggested that you consume: \n#{macros_male_gain}"
+  puts pastel.blue("\nIn order to gain weight you should consume ", pastel.bold.underline("#{eer_male_gain.to_i} Kcals/day.\n"))
+  puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_male_gain}"))
   output_data << "In order to gain weight you should consume #{eer_male_gain.to_i} Kcals per day. \nFrom each macronutrient it is suggested that you consume: \n#{macros_male_gain}"
 
   elsif goal == "lose" && gender == "Male"
     eer_male_lose = eer_male - 500
     macros_male_lose = "#{(eer_male_lose * 0.30 / 4).to_i} grams of protein \n#{(eer_male_lose * 0.35 / 9).to_i} grams of fats \n#{(eer_male_lose * 0.35 / 4).to_i} grams of carbohydrates"
-    puts "In order to lose weight you should consume #{eer_male_lose.to_i} Kcals per day."
-    puts "From each macronutrient it is suggested that you consume:\n#{macros_male_lose}"
+    puts pastel.blue("\nIn order to lose weight you should consume ", pastel.bold.underline("#{eer_male_lose.to_i} Kcals/day."))
+    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_male_lose}"))
     output_data << "In order to lose weight you should consume #{eer_male_lose.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_male_lose}"
   
   elsif goal == "maintain" && gender == "Male"
     macros_male_maintain = "#{(eer_male * 0.30 / 4).to_i} grams of protein \n#{(eer_male * 0.35 / 9).to_i} grams of fats\n#{(eer_male * 0.35 / 4).to_i} grams of carbohydrates"
-    puts "To maintain your weight you can continue to consume #{eer_male.to_i} Kcals per day."
-    puts "From each macronutrient it is suggested that you consume:\n#{macros_male_maintain}"
+    puts pastel.blue("\nTo maintain your weight you can continue to consume ", pastel.bold.underline("#{eer_male.to_i} Kcals per day."))
+    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_male_maintain}"))
     output_data << "To maintain your weight you can continue to consume #{eer_male.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_male_maintain}"
   
   elsif goal == "gain" && gender == "Female"
     eer_female_gain = eer_female + 500
     macros_female_gain = "#{(eer_female_gain * 0.30 / 4).to_i} grams of protein\n#{(eer_female_gain * 0.35 / 9).to_i} grams of fats\n#{(eer_female_gain * 0.35 / 4).to_i} grams of carbohydrates"
-    puts "In order to gain weight you should consume #{eer_female_gain.to_i} Kcals per day."
-    puts "From each macronutrient it is suggested that you consume:\n#{macros_female_gain}"
+    puts pastel.blue("\nIn order to gain weight you should consume ",pastel.bold.underline("#{eer_female_gain.to_i} Kcals per day."))
+    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_gain}"))
     output_data << "In order to gain weight you should consume #{eer_female_gain.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_gain}"
 
   elsif goal == "lose" && gender == "Female"
     eer_female_lose = eer_female - 500
     macros_female_lose = "#{(eer_female_lose * 0.30 / 4).to_i} grams of protein\n#{(eer_female_lose * 0.35 / 9).to_i} grams of fats\n#{(eer_female_lose * 0.35 / 4).to_i} grams of carbohydrates"
-    puts "In order to lose weight you should consume #{eer_female_lose.to_i} Kcals per day."
-    puts "From each macronutrient it is suggested that you consume:\n#{macros_female_lose}"
+    puts pastel.blue("\nIn order to lose weight you should consume ",pastel.bold.underline("#{eer_female_lose.to_i} Kcals per day."))
+    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_lose}"))
     output_data << "In order to lose weight you should consume #{eer_female_lose.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_lose}"
 
   elsif goal == "maintain" && gender == "Female"
     macros_female_maintain = "#{(eer_female * 0.30 / 4).to_i} grams of protein\n#{(eer_female * 0.35 / 9).to_i} grams of fats\n#{(eer_female * 0.35 / 4).to_i} grams of carbohydrates"
-    puts "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day."
-    puts "From each macronutrient it is suggested that you consume:\n#{macros_female_maintain}"
+    puts pastel.blue("\nTo maintain your weight you can continue to consume ", pastel.bold.underline("#{eer_female.to_i} Kcals per day."))
+    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_maintain}"))
     output_data << "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_maintain}"
 end 
+
+puts pastel.yellow("\n\nYou have completed all the questions.\n")
+puts pastel.yellow(font.write("Thank     you!"))
 
 # Error Handling 
 def save_output (file_name, output)

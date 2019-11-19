@@ -1,11 +1,11 @@
-Gender: Male
-Weight: 60kg
-Height: 140cm
-Age: 23
-Your BMI is 30.61
-This classifies you as obese
-In order to gain weight you should consume 2223 Kcals per day. 
-From each macronutrient it is suggested that you consume: 
-166 grams of protein 
-86 grams of fats 
-194 grams of carbohydrates
+Gender: Female
+Weight: 55kg
+Height: 165cm
+Age: 26
+Your BMI is 20.2
+This classifies you as being in the normal weight range.
+In order to lose weight you should consume 1375 Kcals per day.
+From each macronutrient it is suggested that you consume:
+103 grams of protein
+53 grams of fats
+120 grams of carbohydrates
