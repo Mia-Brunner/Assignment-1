@@ -130,7 +130,7 @@ The following images are screenshots from Trello that has assisted me in the dev
 ##### Trello update day 2:
 ![Trello_day1](Documents/Trello_day_1.2.png)
 ##### Trello update day 3:
-![Trello_day1](Documents/trello3.png)
+![Trello_day1](Documents/Trello3.png)
 
 #### Created by:
 Mia Brunner 
