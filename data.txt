@@ -1,11 +1,11 @@
-Gender: Female
-Weight: 55kg
-Height: 165cm
-Age: 26
-Your BMI is 20.2
+Gender: Male
+Weight: 70kg
+Height: 180cm
+Age: 45
+Your BMI is 21.6
 This classifies you as being in the normal weight range.
-In order to lose weight you should consume 1375 Kcals per day.
+In order to lose weight you should consume 1450 Kcals per day.
 From each macronutrient it is suggested that you consume:
-103 grams of protein
-53 grams of fats
-120 grams of carbohydrates
+108 grams of protein 
+56 grams of fats 
+126 grams of carbohydrates

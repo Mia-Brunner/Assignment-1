@@ -18,14 +18,14 @@ greeting = "Welcome"
 output = []
 
 ARGV.each do |arg|
-    case arg
-    when "--hello"
-        greeting = "Hello"
-    when "--welcome"
-        greeting = "Welcome"
-    else
-        output << arg
-    end
+case arg
+  when "--hello"
+  greeting = "Hello"
+  when "--welcome"
+  greeting = "Welcome"
+  else
+  output << arg
+  end
 end
 
 output.each do |value|
@@ -164,38 +164,38 @@ if goal == "gain" && gender == "Male"
   puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_male_gain}"))
   output_data << "In order to gain weight you should consume #{eer_male_gain.to_i} Kcals per day. \nFrom each macronutrient it is suggested that you consume: \n#{macros_male_gain}"
 
-  elsif goal == "lose" && gender == "Male"
-    eer_male_lose = eer_male - 500
-    macros_male_lose = "#{(eer_male_lose * 0.30 / 4).to_i} grams of protein \n#{(eer_male_lose * 0.35 / 9).to_i} grams of fats \n#{(eer_male_lose * 0.35 / 4).to_i} grams of carbohydrates"
-    puts pastel.blue("\nIn order to lose weight you should consume ", pastel.bold.underline("#{eer_male_lose.to_i} Kcals/day."))
-    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_male_lose}"))
-    output_data << "In order to lose weight you should consume #{eer_male_lose.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_male_lose}"
-  
-  elsif goal == "maintain" && gender == "Male"
-    macros_male_maintain = "#{(eer_male * 0.30 / 4).to_i} grams of protein \n#{(eer_male * 0.35 / 9).to_i} grams of fats\n#{(eer_male * 0.35 / 4).to_i} grams of carbohydrates"
-    puts pastel.blue("\nTo maintain your weight you can continue to consume ", pastel.bold.underline("#{eer_male.to_i} Kcals per day."))
-    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_male_maintain}"))
-    output_data << "To maintain your weight you can continue to consume #{eer_male.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_male_maintain}"
-  
-  elsif goal == "gain" && gender == "Female"
-    eer_female_gain = eer_female + 500
-    macros_female_gain = "#{(eer_female_gain * 0.30 / 4).to_i} grams of protein\n#{(eer_female_gain * 0.35 / 9).to_i} grams of fats\n#{(eer_female_gain * 0.35 / 4).to_i} grams of carbohydrates"
-    puts pastel.blue("\nIn order to gain weight you should consume ",pastel.bold.underline("#{eer_female_gain.to_i} Kcals per day."))
-    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_gain}"))
-    output_data << "In order to gain weight you should consume #{eer_female_gain.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_gain}"
+elsif goal == "lose" && gender == "Male"
+  eer_male_lose = eer_male - 500
+  macros_male_lose = "#{(eer_male_lose * 0.30 / 4).to_i} grams of protein \n#{(eer_male_lose * 0.35 / 9).to_i} grams of fats \n#{(eer_male_lose * 0.35 / 4).to_i} grams of carbohydrates"
+  puts pastel.blue("\nIn order to lose weight you should consume ", pastel.bold.underline("#{eer_male_lose.to_i} Kcals/day."))
+  puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_male_lose}"))
+  output_data << "In order to lose weight you should consume #{eer_male_lose.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_male_lose}"
 
-  elsif goal == "lose" && gender == "Female"
-    eer_female_lose = eer_female - 500
-    macros_female_lose = "#{(eer_female_lose * 0.30 / 4).to_i} grams of protein\n#{(eer_female_lose * 0.35 / 9).to_i} grams of fats\n#{(eer_female_lose * 0.35 / 4).to_i} grams of carbohydrates"
-    puts pastel.blue("\nIn order to lose weight you should consume ",pastel.bold.underline("#{eer_female_lose.to_i} Kcals per day."))
-    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_lose}"))
-    output_data << "In order to lose weight you should consume #{eer_female_lose.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_lose}"
+elsif goal == "maintain" && gender == "Male"
+  macros_male_maintain = "#{(eer_male * 0.30 / 4).to_i} grams of protein \n#{(eer_male * 0.35 / 9).to_i} grams of fats\n#{(eer_male * 0.35 / 4).to_i} grams of carbohydrates"
+  puts pastel.blue("\nTo maintain your weight you can continue to consume ", pastel.bold.underline("#{eer_male.to_i} Kcals per day."))
+  puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_male_maintain}"))
+  output_data << "To maintain your weight you can continue to consume #{eer_male.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_male_maintain}"
 
-  elsif goal == "maintain" && gender == "Female"
-    macros_female_maintain = "#{(eer_female * 0.30 / 4).to_i} grams of protein\n#{(eer_female * 0.35 / 9).to_i} grams of fats\n#{(eer_female * 0.35 / 4).to_i} grams of carbohydrates"
-    puts pastel.blue("\nTo maintain your weight you can continue to consume ", pastel.bold.underline("#{eer_female.to_i} Kcals per day."))
-    puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_maintain}"))
-    output_data << "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_maintain}"
+elsif goal == "gain" && gender == "Female"
+  eer_female_gain = eer_female + 500
+  macros_female_gain = "#{(eer_female_gain * 0.30 / 4).to_i} grams of protein\n#{(eer_female_gain * 0.35 / 9).to_i} grams of fats\n#{(eer_female_gain * 0.35 / 4).to_i} grams of carbohydrates"
+  puts pastel.blue("\nIn order to gain weight you should consume ",pastel.bold.underline("#{eer_female_gain.to_i} Kcals per day."))
+  puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_gain}"))
+  output_data << "In order to gain weight you should consume #{eer_female_gain.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_gain}"
+
+elsif goal == "lose" && gender == "Female"
+  eer_female_lose = eer_female - 500
+  macros_female_lose = "#{(eer_female_lose * 0.30 / 4).to_i} grams of protein\n#{(eer_female_lose * 0.35 / 9).to_i} grams of fats\n#{(eer_female_lose * 0.35 / 4).to_i} grams of carbohydrates"
+  puts pastel.blue("\nIn order to lose weight you should consume ",pastel.bold.underline("#{eer_female_lose.to_i} Kcals per day."))
+  puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_lose}"))
+  output_data << "In order to lose weight you should consume #{eer_female_lose.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_lose}"
+
+elsif goal == "maintain" && gender == "Female"
+  macros_female_maintain = "#{(eer_female * 0.30 / 4).to_i} grams of protein\n#{(eer_female * 0.35 / 9).to_i} grams of fats\n#{(eer_female * 0.35 / 4).to_i} grams of carbohydrates"
+  puts pastel.blue("\nTo maintain your weight you can continue to consume ", pastel.bold.underline("#{eer_female.to_i} Kcals per day."))
+  puts pastel.blue("\nFrom each macronutrient it is suggested that you consume:\n", pastel.bold("#{macros_female_maintain}"))
+  output_data << "To maintain your weight you can continue to consume #{eer_female.to_i} Kcals per day.\nFrom each macronutrient it is suggested that you consume:\n#{macros_female_maintain}"
 end 
 
 puts pastel.yellow("\n\nYou have completed all the questions.\n")
