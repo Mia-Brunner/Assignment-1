@@ -11,5 +11,3 @@ gem install tty-spinner
 gem install tty-prompt
 gem install tty-font
 gem install pastel 
-
-#if they dont nred to update permissions just build, but if they need ro update permission chmod it then build
